@@ -48,8 +48,8 @@ def load_model(model_name):
 def load_MBD():
     global MBD
     if MBD is None:
-        print("loading MBD")
-        MBD = MultiBandDiffusion.get_mbd_musicgen()
+        print("loading MBD models/multiband-diffusion")
+        MBD = MultiBandDiffusion.get_mbd_musicgen(device='cuda')
 
 # 中断生成
 def interrupt():
@@ -93,6 +93,7 @@ file_cleaner = FileCleaner(file_lifetime=3600)
 
 def predict(text, melody, duration, progress=False, gradio_progress=None, **gen_kwargs):
     MODEL.set_generation_params(duration=duration, **gen_kwargs)
+    start_time = time.time() # 开始时间
     if melody is not None:
         sr, melody_wav = melody
         melody_wav = torch.from_numpy(melody_wav).to(MODEL.device).float().t()
@@ -133,7 +134,8 @@ def predict(text, melody, duration, progress=False, gradio_progress=None, **gen_
                 out_wavs.append(file.name)
         out_videos = [video.result() for video in video_pool]
     for video in out_videos: file_cleaner.add(video);
-    print("缓存文件数量", len(file_cleaner.files))
+    print("文生音乐总耗时", time.time() - start_time)
+    print("当前缓存文件数", len(file_cleaner.files))
     return out_wavs, out_videos
 
 def generate(model_path, model_choice, decoder_choice, text, audio, duration, cfg_coef, temper, top_p, top_k, progress=gr.Progress()):
@@ -169,7 +171,7 @@ def generate(model_path, model_choice, decoder_choice, text, audio, duration, cf
     # 翻译文本为英文
     from translators import translate_text
     text2 = translate_text(text)
-    print("【text】", text, "-->", text2)
+    print("文本翻译为英文", text, "==>", text2)
     # 生成音乐并返回
     try:
         wavs, videos = predict(
@@ -187,10 +189,10 @@ def save_video(df: pd.DataFrame, name: str, video, video_MBD):
     save_path = "output/" + name + ".mp4"
     if video_MBD:
         shutil.copy(video_MBD, save_path)
-        print(save_path, "已成功保存！")
+        print("视频成功保存至", save_path)
     elif video:
         shutil.copy(video, save_path)
-        print(save_path, "已成功保存！")
+        print("视频成功保存至", save_path)
     else:
         print("视频不存在，无法保存！")
         return df 
