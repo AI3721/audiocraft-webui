@@ -1,0 +1,1 @@
+https://huggingface.co/nateraw/musicgen-songstarter-v0.2

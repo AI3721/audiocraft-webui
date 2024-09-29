@@ -1,0 +1,18 @@
+multiband-diffusion: 多频带扩散解码器
+
+musicgen/musicgen-small: 文本生成音乐，小型
+musicgen/musicgen-medium: 文本生成音乐，中型
+musicgen/musicgen-large: 文本生成音乐，大型
+
+musicgen/musicgen-melody: 文本+旋律生成音乐，中型
+musicgen/musicgen-melody-large: 文本+旋律生成音乐，大型
+
+musicgen/musicgen-stereo-small: 文本生成立体声音乐，小型
+musicgen/musicgen-stereo-medium: 文本生成立体声音乐，中型
+musicgen/musicgen-stereo-large: 文本生成立体声音乐，大型
+
+musicgen/musicgen-stereo-melody: 文本+旋律生成立体声音乐，中型
+musicgen/musicgen-stereo-melody-large: 文本+旋律生成立体声音乐，大型
+
+musicgen/musicgen-songstarter-v0.1: musicgen-melody 微调模型
+musicgen/musicgen-songstarter-v0.2: musicgen-stereo-melody-large 微调模型
