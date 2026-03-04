@@ -1,6 +1,6 @@
 # audiocraft-webui
 > [!TIP]
-> 基于Gradio实现Musicgen的可视化
+> 基于Gradio实现Musicgen的可视化，支持音乐的生成和列表管理
 ## 项目运行
 ```bash
 git clone https://github.com/AI3721/audiocraft-webui.git
